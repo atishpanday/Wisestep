@@ -1,0 +1,11 @@
+<div class="card text-center w-25 d-f justify-content-center m-auto shadow">
+  <div class="card-header">
+    <h1>Login/Signup</h1>
+  </div>
+  <div class="card-body vh-75">
+    <label for="exampleFormControlInput1" class="form-label m-2">Enter your email address</label>
+    <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="name@example.com" [(ngModel)]="email">
+    <button class="btn btn-primary w-100 my-2" (click)="sendEmail()">Submit</button>
+  </div>
+  <button *ngIf="duplicateUserFound" class="btn btn-secondary" (click)="logoutDuplicateUser()">Logout duplicate user</button>
+</div>

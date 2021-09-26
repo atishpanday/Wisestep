@@ -1,0 +1,10 @@
+<div class="card text-center w-25 d-f justify-content-center m-auto shadow">
+  <div class="card-header">
+    <h1>Verify code</h1>
+  </div>
+  <div class="card-body vh-75 d-f justify-content-center">
+    <label for="exampleFormControlInput1" class="form-label m-2">Enter the code sent to your email address</label>
+    <input type="email" class="form-control my-2" id="exampleFormControlInput1" [(ngModel)]="code">
+    <button class="btn btn-primary w-100 my-2" (click)="sendCode()">Submit</button>
+  </div>
+</div>
