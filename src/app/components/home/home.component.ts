@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.email = localStorage.getItem("email") || ""
-    this.http.putRequest("http://localhost:8080/logout", {
+    this.http.putRequest("https://wisestep-two-factor-auth.herokuapp.com/logout", {
       "email": this.email
     })
       .subscribe(response => {

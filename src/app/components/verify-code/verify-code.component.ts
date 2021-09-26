@@ -26,7 +26,7 @@ export class VerifyCodeComponent implements OnInit {
   ngOnInit(): void {}
 
   sendCode() {
-    this.http.postRequest("http://localhost:8080/get-code", {
+    this.http.postRequest("https://wisestep-two-factor-auth.herokuapp.com/get-code", {
       "email": this.email,
       "code": this.code
     }, {"headers": this.headers})

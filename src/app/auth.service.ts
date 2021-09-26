@@ -17,7 +17,7 @@ export class AuthService {
   isLoggedIn: Boolean = false
 
   authenticate() {
-    return this.http.postRequest("http://localhost:8080/authenticate", {
+    return this.http.postRequest("https://wisestep-two-factor-auth.herokuapp.com/authenticate", {
       "email": this.email,
       "session_id": this.session_id
     }, { "headers": { "Content-Type": "application/json" } })
