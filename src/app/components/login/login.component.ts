@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   sendEmail() {
     console.log(this.email)
-    this.httpService.postRequest("http://localhost:8080/get-email", { "email": this.email }, { "headers": this.headers })
+    this.httpService.postRequest("https://wisestep-two-factor-auth.herokuapp.com/get-email", { "email": this.email }, { "headers": this.headers })
       .subscribe(response => {
         this.router.navigateByUrl("/verify", {
           state: {
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   logoutDuplicateUser() {
-    this.httpService.putRequest("http://localhost:8080/logout-duplicate-session", {
+    this.httpService.putRequest("https://wisestep-two-factor-auth.herokuapp.com/logout-duplicate-session", {
       "email": this.email
     }, { "headers": this.headers })
       .subscribe(response => {
