@@ -1,5 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http'
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast'
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import { throwError } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 import { HttpService } from 'src/app/http.service'
 
 @Component({
@@ -26,31 +30,37 @@ export class LoginComponent implements OnInit {
 
   sendEmail() {
     console.log(this.email)
-    this.httpService.postRequest("https://wisestep-two-factor-auth.herokuapp.com/get-email", {"email": this.email}, {"headers": this.headers})
-    .subscribe(response => {
-      if(response.message === "CREATED") {
-        this.router.navigateByUrl("/verify", {state: {
-          email: this.email
-        }})
-      } else if(response.message === "DUPLICATE_USER") {
-        alert("You are already signed in on another device/browser.")
-        this.duplicateUserFound = true
-      }
-    })
+    this.httpService.postRequest("http://localhost:8080/get-email", { "email": this.email }, { "headers": this.headers })
+      .subscribe(response => {
+        this.router.navigateByUrl("/verify", {
+          state: {
+            email: this.email
+          }
+        })
+      }, error => {
+        if (error.error.message === "DUPLICATE_USER") {
+          alert("You are logged in on another device/browser")
+          this.duplicateUserFound = true
+        }
+      })
   }
 
   logoutDuplicateUser() {
-    this.httpService.putRequest("https://wisestep-two-factor-auth.herokuapp.com/logout-duplicate-user", {
+    this.httpService.putRequest("http://localhost:8080/logout-duplicate-session", {
       "email": this.email
-    }, {"headers": this.headers})
-    .subscribe(response => {
-      if(response.message === "Success") {
+    }, { "headers": this.headers })
+      .subscribe(response => {
+        console.log(response.message)
         this.sendEmail()
-      } else {
-        alert("Failed to logout duplicate user")
-        this.router.navigateByUrl("/")
-      }
-    })
+      },
+        error => {
+          console.log(error)
+        })
   }
 
+  clicked: Boolean = false
+
+  showDuplicateUser() {
+    this.duplicateUserFound = true
+  }
 }
